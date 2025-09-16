@@ -164,9 +164,10 @@ export default function OnBoarding({ token }) {
     if (profilePicture) form.append("profilePicture", profilePicture);
 
     try {
+      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:4000/user/onboarding",
+        `${BASE_URL}/user/onboarding`,
         form,
         {
           headers: { "Content-Type": "multipart/form-data" },

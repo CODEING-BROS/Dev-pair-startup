@@ -57,9 +57,11 @@ const CommentDialog = ({ open, setOpen, postId }) => {
     if (!commentText.trim() || !selectedPost?._id)
       return toast.error("Please write something.");
 
+    const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '/';
+
     try {
       const res = await axios.post(
-        `http://localhost:4000/post/${selectedPost._id}/comment`,
+        `${BASE_URL}/post/${selectedPost._id}/comment`,
         { message: commentText },
         { withCredentials: true }
       );
@@ -93,13 +95,13 @@ const CommentDialog = ({ open, setOpen, postId }) => {
 
   const handleDeleteComment = async (commentId) => {
     if (!selectedPost) return;
-
+const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173/' : '/';
     try {
       const confirmed = window.confirm("Are you sure you want to delete this comment?");
       if (!confirmed) return;
 
       const res = await axios.delete(
-        `http://localhost:4000/comment/${commentId}`,
+        `${BASE_URL}/comment/${commentId}`,
         { withCredentials: true }
       );
 
@@ -123,10 +125,10 @@ const CommentDialog = ({ open, setOpen, postId }) => {
 
   const deletePostHandler = async () => {
     if (!selectedPost) return;
-
+      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173/' : '/';
     try {
       const res = await axios.delete(
-        `http://localhost:4000/post/delete/${selectedPost._id}`,
+        `${BASE_URL}/post/delete/${selectedPost._id}`,
         { withCredentials: true }
       );
 
@@ -144,8 +146,9 @@ const CommentDialog = ({ open, setOpen, postId }) => {
 
   const toggleLike = async (commentId) => {
     try {
+      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173/' : '/';
       const res = await axios.post(
-        `http://localhost:4000/comment/like/${commentId}`,
+        `${BASE_URL}/comment/like/${commentId}`,
         {},
         { withCredentials: true }
       );

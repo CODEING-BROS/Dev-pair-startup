@@ -37,8 +37,9 @@ const Navbar = () => {
 
   const handleLogout = async () => {
   try {
+    const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
     const res = await axios.post(
-      "http://localhost:4000/user/logout",
+      `${BASE_URL}/user/logout`,
       {},
       {
         withCredentials: true,

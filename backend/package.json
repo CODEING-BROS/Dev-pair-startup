@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "type": "module",
- "main": "src/server.js",
+  "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
@@ -24,7 +24,9 @@
     "multer": "^2.0.0",
     "nodemailer": "^7.0.5",
     "nodemon": "^3.1.10",
+    "path": "^0.12.7",
     "sharp": "^0.34.2",
+    "startup-project": "file:..",
     "stream-chat": "^9.19.1"
   }
 }

@@ -81,7 +81,8 @@ const AboutUs = () => {
     setSuccess(null);
 
     try {
-      const response = await axios.post("http://localhost:4000/contact", {
+      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:4000' : '';
+      const response = await axios.post(`${BASE_URL}/contact`, {
         name,
         email,
         message,

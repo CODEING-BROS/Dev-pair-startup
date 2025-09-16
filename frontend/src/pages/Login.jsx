@@ -35,8 +35,9 @@ const Login = () => {
     setLoading(true);
 
     try {
+      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
       const res = await axios.post(
-        "http://localhost:4000/user/login",
+        `${BASE_URL}/user/login`,
         input,
         {
           headers: {

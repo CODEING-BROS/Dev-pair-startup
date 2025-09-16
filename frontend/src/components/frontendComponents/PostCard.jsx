@@ -77,8 +77,9 @@ const PostCard = ({ post }) => {
 
   const deletePostHandler = async () => {
     try {
+      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
       const res = await axios.delete(
-        `http://localhost:4000/post/delete/${post._id}`,
+        `${BASE_URL}/post/delete/${post._id}`,
         { withCredentials: true }
       );
 
@@ -95,9 +96,10 @@ const PostCard = ({ post }) => {
 
   const likeDislikeHandler = async () => {
     try {
+      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
       const action = liked ? "unlike" : "like";
       const res = await axios.post(
-        `http://localhost:4000/post/${action}/${post._id}`,
+        `${BASE_URL}/post/${action}/${post._id}`,
         {},
         { withCredentials: true }
       );
@@ -139,8 +141,9 @@ const PostCard = ({ post }) => {
     }
 
     try {
+      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
       const response = await axios.post(
-        `http://localhost:4000/post/${post._id}/comment`,
+        `${BASE_URL}/post/${post._id}/comment`,
         { message: text },
         {
           headers: { "Content-Type": "application/json" },
@@ -182,8 +185,9 @@ const PostCard = ({ post }) => {
   }
 
   try {
+    const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
     const response = await axios.post(
-      `http://localhost:4000/post/bookmark/${post._id}`,
+      `${BASE_URL}/post/bookmark/${post._id}`,
       {},
       { withCredentials: true }
     );
