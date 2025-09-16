@@ -20,12 +20,28 @@ connectDB();
 const app = express();
 
 // Test route
+app.get("/", (req, res) => {
+  res.send("BACKEND IS WORKING!!!");
+});
 
+// =====================
 // Middleware
+// =====================
 
-// CORS setup
+// ✅ CORS setup for both local + production frontend
+const allowedOrigins = [
+  "http://localhost:5173",                      // local frontend
+  "https://startup-frontend.onrender.com"       // deployed frontend (change to your actual URL)
+];
+
 const corsOptions = {
-  origin: "http://localhost:5173", // frontend URL
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
 };
 
@@ -35,25 +51,32 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
+// =====================
 // Routes
+// =====================
 app.use("/auth", authRoute);
 app.use("/user", userRoute);
 app.use("/post", postRoute);
 app.use("/comment", commentRoute);
-app.use("/chat", chatRoute);       // Stream token & chat-related backend endpoints
-app.use("/group", groupChatRoute);     // Group management endpoints
-app.use("/messages", messageRoute); // Optional message persistence in MongoDB
+app.use("/chat", chatRoute);       
+app.use("/group", groupChatRoute);     
+app.use("/messages", messageRoute); 
 
-
-if (process.env.NODE_ENV === 'production') {
-  const frontendPath = path.resolve(__dirname, '../frontend/dist');
+// =====================
+// Serve frontend in production
+// =====================
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.resolve(__dirname, "../frontend/dist");
   app.use(express.static(frontendPath));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(frontendPath, 'index.html'));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
+
+// =====================
 // Start server
+// =====================
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
