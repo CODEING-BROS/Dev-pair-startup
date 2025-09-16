@@ -2,7 +2,7 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 import cloudinary  from "../utils/cloudinary.js";
-import  getDatauri  from "../utils/dataUri.js";
+import  getDatauri  from "../utils/datauri.js";
 import bcrypt from "bcryptjs";
 
 // ==========================
