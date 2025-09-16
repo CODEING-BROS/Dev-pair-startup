@@ -20,9 +20,6 @@ connectDB();
 const app = express();
 
 // Test route
-app.get("/", (req, res) => {
-  res.send("BACKEND IS WORKING!!!");
-});
 
 // Middleware
 
