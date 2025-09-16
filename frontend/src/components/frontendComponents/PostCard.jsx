@@ -77,7 +77,7 @@ const PostCard = ({ post }) => {
 
   const deletePostHandler = async () => {
     try {
-      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
+     const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
       const res = await axios.delete(
         `${BASE_URL}/post/delete/${post._id}`,
         { withCredentials: true }
@@ -96,7 +96,8 @@ const PostCard = ({ post }) => {
 
   const likeDislikeHandler = async () => {
     try {
-      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
+      const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+
       const action = liked ? "unlike" : "like";
       const res = await axios.post(
         `${BASE_URL}/post/${action}/${post._id}`,
@@ -141,7 +142,8 @@ const PostCard = ({ post }) => {
     }
 
     try {
-      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
+     const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+
       const response = await axios.post(
         `${BASE_URL}/post/${post._id}/comment`,
         { message: text },
@@ -185,7 +187,8 @@ const PostCard = ({ post }) => {
   }
 
   try {
-    const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+
     const response = await axios.post(
       `${BASE_URL}/post/bookmark/${post._id}`,
       {},

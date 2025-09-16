@@ -146,7 +146,8 @@ export default function EditProfilePage() {
     if (profilePicture) form.append("profilePicture", profilePicture);
 
     try {
-      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
+     const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+
       setLoading(true);
       const res = await axios.post(
         `${BASE_URL}/user/profile/edit`,

@@ -30,9 +30,10 @@ app.get("/", (req, res) => {
 
 // ✅ CORS setup for both local + production frontend
 const allowedOrigins = [
-  "http://localhost:5173",                      // local frontend
-  "https://startup-frontend.onrender.com"       // deployed frontend (change to your actual URL)
+  "http://localhost:5173",
+  process.env.FRONTEND_URL
 ];
+
 
 const corsOptions = {
   origin: (origin, callback) => {

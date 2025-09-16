@@ -92,7 +92,8 @@ const CreatePost = () => {
 
     try {
       setLoading(true);
-      const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '';
+     const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+
       const res = await axios.post(`${BASE_URL}/post/new`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,

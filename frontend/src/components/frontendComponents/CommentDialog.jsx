@@ -57,7 +57,8 @@ const CommentDialog = ({ open, setOpen, postId }) => {
     if (!commentText.trim() || !selectedPost?._id)
       return toast.error("Please write something.");
 
-    const BASE_URL = import.meta.env.MODE === 'development'? 'http://localhost:5173' : '/';
+   const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+
 
     try {
       const res = await axios.post(
