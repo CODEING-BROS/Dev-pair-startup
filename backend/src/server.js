@@ -20,9 +20,7 @@ connectDB();
 const app = express();
 
 // Test route
-app.get("/", (req, res) => {
-  res.send("BACKEND IS WORKING!!!");
-});
+
 
 // =====================
 // Middleware
@@ -66,18 +64,21 @@ app.use("/messages", messageRoute);
 // =====================
 // Serve frontend in production
 // =====================
+// =====================
+// Serve frontend in production
+// =====================
 if (process.env.NODE_ENV === "production") {
   const frontendPath = path.resolve(__dirname, "../frontend/dist");
   app.use(express.static(frontendPath));
+  // This must come **before** any other routes that could match "/"
   app.get("*", (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
 
-// =====================
-// Start server
-// =====================
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-});
+// Test route (optional)
+if (process.env.NODE_ENV !== "production") {
+  app.get("/", (req, res) => {
+    res.send("BACKEND IS WORKING!!!");
+  });
+}
