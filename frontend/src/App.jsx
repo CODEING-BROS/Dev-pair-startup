@@ -16,7 +16,7 @@ import AboutUs from "./pages/AboutUs";
 import EditProfile from "./components/frontendComponents/EditProfile";
 import ChatsPage from "./pages/ChatsPage";
 import Profile from "./pages/Profile";
-import Onboarding from "./pages/Onboarding";
+import OnBoarding from "./pages/OnBoarding";
 
 // Layouts
 import MainLayout from "./pages/MainLayout";
@@ -104,7 +104,7 @@ const AppRoot = () => {
       element: isAuthenticated && isOnboarded ? (
         <EditProfile />
       ) : (
-        <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+        <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
       ),
     },
     {
