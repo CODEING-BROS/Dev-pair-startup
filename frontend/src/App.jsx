@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
 // Pages
 import Login from "./pages/Login";
@@ -30,12 +26,12 @@ const AppRoot = () => {
   const { isLoading } = useAuthUser();
   const authUser = useAuthStore((state) => state.user);
 
-  if (isLoading) {
+  if (isLoading || authUser === undefined) {
     return <Loader2 />;
   }
 
   const isAuthenticated = Boolean(authUser);
-  const isOnboarded = authUser?.isOnboarded;
+  const isOnboarded = Boolean(authUser?.isOnboarded);
 
   const router = createBrowserRouter([
     // --------------------------
@@ -46,7 +42,7 @@ const AppRoot = () => {
       element: !isAuthenticated ? (
         <Login />
       ) : (
-        <Navigate to={isOnboarded ? "/" : "/onBoarding"} />
+        <Navigate to={isOnboarded ? "/" : "/onboarding"} />
       ),
     },
     {
@@ -54,7 +50,7 @@ const AppRoot = () => {
       element: !isAuthenticated ? (
         <Signup />
       ) : (
-        <Navigate to={isOnboarded ? "/" : "/onBoarding"} />
+        <Navigate to={isOnboarded ? "/" : "/onboarding"} />
       ),
     },
 
@@ -79,7 +75,7 @@ const AppRoot = () => {
         isAuthenticated && isOnboarded ? (
           <MainLayout />
         ) : (
-          <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
+          <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
         ),
       children: [
         { index: true, element: <Home /> },
@@ -96,7 +92,7 @@ const AppRoot = () => {
       element: isAuthenticated && isOnboarded ? (
         <CreateRoomPage />
       ) : (
-        <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
+        <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
       ),
     },
     {
@@ -104,7 +100,7 @@ const AppRoot = () => {
       element: isAuthenticated && isOnboarded ? (
         <EditProfile />
       ) : (
-        <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
+        <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
       ),
     },
     {
@@ -112,7 +108,7 @@ const AppRoot = () => {
       element: isAuthenticated && isOnboarded ? (
         <Profile />
       ) : (
-        <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
+        <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
       ),
     },
     {
@@ -128,15 +124,13 @@ const AppRoot = () => {
       element: isAuthenticated && isOnboarded ? (
         <ChatsPage />
       ) : (
-        <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
+        <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
       ),
     },
     {
       path: "/about-us",
-      element: <AboutUs />
-    }
-
-    
+      element: <AboutUs />,
+    },
   ]);
 
   return <RouterProvider router={router} />;
