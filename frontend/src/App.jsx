@@ -46,7 +46,7 @@ const AppRoot = () => {
       element: !isAuthenticated ? (
         <Login />
       ) : (
-        <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+        <Navigate to={isOnboarded ? "/" : "/onBoarding"} />
       ),
     },
     {
@@ -54,7 +54,7 @@ const AppRoot = () => {
       element: !isAuthenticated ? (
         <Signup />
       ) : (
-        <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+        <Navigate to={isOnboarded ? "/" : "/onBoarding"} />
       ),
     },
 
@@ -64,7 +64,7 @@ const AppRoot = () => {
     {
       path: "/onboarding",
       element: isAuthenticated ? (
-        !isOnboarded ? <Onboarding /> : <Navigate to="/" />
+        !isOnboarded ? <OnBoarding /> : <Navigate to="/" />
       ) : (
         <Navigate to="/login" />
       ),
@@ -79,7 +79,7 @@ const AppRoot = () => {
         isAuthenticated && isOnboarded ? (
           <MainLayout />
         ) : (
-          <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+          <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
         ),
       children: [
         { index: true, element: <Home /> },
@@ -96,7 +96,7 @@ const AppRoot = () => {
       element: isAuthenticated && isOnboarded ? (
         <CreateRoomPage />
       ) : (
-        <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+        <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
       ),
     },
     {
@@ -112,7 +112,7 @@ const AppRoot = () => {
       element: isAuthenticated && isOnboarded ? (
         <Profile />
       ) : (
-        <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+        <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
       ),
     },
     {
@@ -128,7 +128,7 @@ const AppRoot = () => {
       element: isAuthenticated && isOnboarded ? (
         <ChatsPage />
       ) : (
-        <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+        <Navigate to={!isAuthenticated ? "/login" : "/onBoarding"} />
       ),
     },
     {
