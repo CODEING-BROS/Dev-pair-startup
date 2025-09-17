@@ -4,6 +4,7 @@ import connectDB from "./utils/db.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
+import { fileURLToPath } from "url";
 
 // Routes imports...
 import userRoute from "./routes/userRoute.js";
@@ -18,26 +19,22 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const __dirname = path.resolve();
+
+// __dirname fix for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // =====================
 // Middleware
 // =====================
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://startup-frontend.onrender.com", // update if your frontend domain changes
-];
-
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: process.env.NODE_ENV === "production"
+    ? ["https://startup-frontend.onrender.com"]
+    : "*",  // ✅ allow all in dev
   credentials: true,
 }));
+
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -57,21 +54,21 @@ app.use("/messages", messageRoute);
 // Serve frontend in production
 // =====================
 if (process.env.NODE_ENV === "production") {
-  const frontendPath = path.resolve(__dirname, "../frontend/dist");
+  const frontendPath = path.resolve(__dirname, "../../frontend/dist"); // adjust relative to src
   app.use(express.static(frontendPath));
 
-  // catch-all -> send React index.html
   app.get("*", (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
-} else {
+}
+ else {
   // Dev mode only
   app.get("/", (req, res) => {
     res.send("BACKEND IS WORKING!!!");
   });
 }
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
