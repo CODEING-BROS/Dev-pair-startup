@@ -150,7 +150,7 @@ const Navbar = () => {
               <BsChatSquareDots className="w-4 h-4" aria-hidden="true" />
               <span>Chats</span>
             </Link>
-            <Link to="/about" className="hover:text-white transition">
+            <Link to="/about-us" className="hover:text-white transition">
               About Us
             </Link>
           </nav>

@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useAuthStore from "@/store/authStore";
 
+// A conceptual example, assuming the backend now returns isOnboarded
 const useAuthUser = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { user: authUser, setAuthUser } = useAuthStore(); // ✅ Get the user state from the store
+  const { user: authUser, setAuthUser } = useAuthStore();
 
   useEffect(() => {
-    // If user data already exists in the store, we're done.
     if (authUser) {
       setIsLoading(false);
       return;
@@ -19,7 +19,8 @@ const useAuthUser = () => {
         const res = await axios.get(`${BASE_URL}/auth/me`, {
           withCredentials: true,
         });
-        if (res.data) {
+        // Assuming res.data.user now includes an 'isOnboarded' boolean
+        if (res.data && res.data.user) { 
           setAuthUser(res.data.user);
         }
       } catch (error) {
@@ -31,9 +32,7 @@ const useAuthUser = () => {
     };
 
     fetchAuthUser();
-  }, [setAuthUser, authUser]); // ✅ Add authUser as a dependency to prevent redundant fetches
+  }, [setAuthUser, authUser]);
 
-  return { isLoading, authUser }; // ✅ Return the authUser state from the store
+  return { isLoading, authUser };
 };
-
-export default useAuthUser;
