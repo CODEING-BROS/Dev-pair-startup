@@ -9,7 +9,8 @@ const useGetAllPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/post/all", {
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+        const res = await axios.get(`${BASE_URL}/post/all`, {
           withCredentials: true,
         });
 

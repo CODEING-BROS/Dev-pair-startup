@@ -12,9 +12,10 @@ export default function useGetUserProfile(username) {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
         const url = username
-          ? `http://localhost:4000/user/profile/${username}`
-          : `http://localhost:4000/user/profile`;
+          ? `${BASE_URL}/user/profile/${username}`
+          : `${BASE_URL}/user/profile`;
 
         const res = await axios.get(url, { withCredentials: true });
         // ✅ Set the fetched profile in the Zustand store

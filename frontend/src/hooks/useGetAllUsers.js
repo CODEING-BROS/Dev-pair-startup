@@ -17,7 +17,8 @@ const useGetAllUsers = (token) => {
 
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("/api/users", {
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+        const res = await axios.get(`${BASE_URL}/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

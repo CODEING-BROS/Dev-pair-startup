@@ -9,7 +9,8 @@ const useGetAllComments = (postId, open = true) => {
   const fetchComments = async () => {
     if (!postId) return;
     try {
-      const res = await axios.get(`http://localhost:4000/comment/${postId}`, {
+      const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+      const res = await axios.get(`${BASE_URL}/comment/${postId}`, {
         withCredentials: true,
       });
       // ✅ Call the Zustand store action directly

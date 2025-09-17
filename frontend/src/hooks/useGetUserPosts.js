@@ -20,7 +20,8 @@ const useGetUserPosts = (usernameFromProp) => {
 
     const fetchUserPosts = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/post/user/${username}`, {
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+        const res = await axios.get(`${BASE_URL}/post/user/${username}`, {
           withCredentials: true,
         });
         setPosts(res.data.posts);

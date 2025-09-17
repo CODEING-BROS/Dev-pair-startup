@@ -21,9 +21,10 @@ const useFollowToggle = (userId) => {
     setFollowLoading(true);
 
     try {
+      const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
       const url = isFollowing
-        ? `http://localhost:4000/user/unfollow/${userId}`
-        : `http://localhost:4000/user/follow/${userId}`;
+        ? `${BASE_URL}/user/unfollow/${userId}`
+        : `${BASE_URL}/user/follow/${userId}`;
 
       const response = await axios.post(url, {}, { withCredentials: true });
 

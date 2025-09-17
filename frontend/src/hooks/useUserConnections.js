@@ -15,8 +15,9 @@ export const useUserConnections = (username) => {
 
     const fetchData = async () => {
       try {
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
         setLoading(true);
-        const res = await axios.get(`http://localhost:4000/user/profile/${username}/connections`, {
+        const res = await axios.get(`${BASE_URL}/user/profile/${username}/connections`, {
           withCredentials: true,
         });
         if (res.data.success) {
