@@ -15,7 +15,8 @@ const useAuthUser = () => {
 
     const fetchAuthUser = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/auth/me", {
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5173';
+        const res = await axios.get(`${BASE_URL}/auth/me`, {
           withCredentials: true,
         });
         if (res.data) {
